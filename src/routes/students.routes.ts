@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { validate } from "../middlewares/validation.middleware";
+import { createStudentSchema } from "../validation/schemas/student.schema";
 import {
     getAllStudents,
     getStudentById,
@@ -11,7 +13,9 @@ const router = Router();
 
 router.get("/", getAllStudents);
 router.get("/:id", getStudentById);
-router.post("/", createStudent);
+router.post("/",
+    validate(createStudentSchema),
+    createStudent);
 router.put("/:id", updateStudent);
 router.delete("/:id", deleteStudent);
 
