@@ -71,5 +71,23 @@ export class ConfigService {
   async getThresholdByFactor(factor: string): Promise<IRiskThreshold | null> {
     return this.configRepository.findByFactor(factor);
   }
+
+  /**
+   * Retrieves all risk thresholds.
+   * @returns An array of all risk thresholds.
+   */
+  async getAllThresholds(): Promise<IRiskThreshold[]> {
+    return this.configRepository.findAll();
+  }
+
+  /**
+   * Resets all custom risk thresholds by deleting them.
+   * @returns The result of the delete operation.
+   */
+  async resetAllThresholds(): Promise<any> {
+    const deleted = await this.configRepository.deleteAll();
+    this.logAudit('RESET_ALL_THRESHOLDS', 'system', { count: deleted.deletedCount });
+    return deleted;
+  }
 }
 
