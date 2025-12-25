@@ -24,6 +24,8 @@ router.put(
   configController.updateThreshold
 );
 
-// TODO: Add routes for config management (T019)
+// Define routes for User Story 3 (T019)
+router.get('/thresholds', configController.getAllThresholds);
+router.delete('/thresholds', configController.resetAllThresholds);
 
 export default router;
