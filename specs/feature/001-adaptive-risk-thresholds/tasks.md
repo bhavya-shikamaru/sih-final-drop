@@ -73,7 +73,7 @@
 - [x] T018 [P] [US3] Add `getAllThresholds` and `resetAllThresholds` handlers to `config.controller.ts`.
 - [x] T019 [US3] In `src/routes/config.routes.ts`, define the `GET /thresholds` and `DELETE /thresholds` routes.
 - [x] T020 [US3] Add 'admin' role authentication middleware to the new GET and DELETE routes.
-- [ ] T021 [US3] Implement audit logging within `config.service.ts` for the delete operation.
+- [x] T021 [US3] Implement audit logging within `config.service.ts` for the delete operation.
 
 **Checkpoint**: User Story 3 is fully functional. Admins have full CRUD control over thresholds.
 
