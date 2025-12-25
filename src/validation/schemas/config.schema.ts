@@ -5,24 +5,18 @@ const operatorSchema = z.enum(['LT', 'GT', 'EQ']);
 
 // Schema for the request body when creating a new RiskThreshold
 export const createThresholdBodySchema = z.object({
-  factor: z.string({
-    required_error: 'Factor is required',
-  }).min(3, 'Factor must be at least 3 characters long'),
+  factor: z.string().min(3, 'Factor must be at least 3 characters long'),
   
   operator: operatorSchema,
   
-  value: z.number({
-    required_error: 'Value is required',
-  }),
+  value: z.number(),
 
   description: z.string().optional(),
 });
 
 // Schema for the URL parameters when dealing with a single factor
 export const thresholdParamsSchema = z.object({
-  factor: z.string({
-      required_error: 'Factor parameter is required',
-  }),
+  factor: z.string(),
 });
 
 // Schema for the request body when updating an existing RiskThreshold
