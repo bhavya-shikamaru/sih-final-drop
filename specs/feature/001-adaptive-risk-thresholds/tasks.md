@@ -68,7 +68,7 @@
 
 ### Implementation for User Story 3
 
-- [ ] T016 [P] [US3] Implement `findAll` and `deleteAll` methods in `config.repository.ts`.
+- [x] T016 [P] [US3] Implement `findAll` and `deleteAll` methods in `config.repository.ts`.
 - [ ] T017 [P] [US3] Implement `getAllThresholds` and `resetAllThresholds` methods in `config.service.ts`.
 - [ ] T018 [P] [US3] Add `getAllThresholds` and `resetAllThresholds` handlers to `config.controller.ts`.
 - [ ] T019 [US3] In `src/routes/config.routes.ts`, define the `GET /thresholds` and `DELETE /thresholds` routes.

@@ -34,4 +34,20 @@ export class ConfigRepository {
   async findByFactor(factor: string): Promise<IRiskThreshold | null> {
     return RiskThresholdModel.findOne({ factor: factor });
   }
+
+  /**
+   * Finds all risk thresholds.
+   * @returns A list of all risk threshold documents.
+   */
+  async findAll(): Promise<IRiskThreshold[]> {
+    return RiskThresholdModel.find({});
+  }
+
+  /**
+   * Deletes all risk thresholds.
+   * @returns The result of the delete operation.
+   */
+  async deleteAll(): Promise<any> {
+    return RiskThresholdModel.deleteMany({});
+  }
 }
