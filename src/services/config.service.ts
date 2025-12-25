@@ -1,11 +1,29 @@
 import { ConfigRepository } from '../repositories/config.repository';
 import { IRiskThreshold } from '../models/config/Threshold.model';
+import * as fs from 'fs';
+import * as path from 'path';
 
 export class ConfigService {
   private configRepository: ConfigRepository;
+  private auditLogStream: fs.WriteStream;
 
   constructor() {
     this.configRepository = new ConfigRepository();
+    const logPath = path.join(__dirname, '../../../logs/audit.log');
+    // Ensure logs directory exists
+    fs.mkdirSync(path.dirname(logPath), { recursive: true });
+    this.auditLogStream = fs.createWriteStream(logPath, { flags: 'a' });
+  }
+
+  private logAudit(action: string, user: string, details: Record<string, any>) {
+    const timestamp = new Date().toISOString();
+    const logEntry = {
+      timestamp,
+      action,
+      user, // Placeholder for now
+      details,
+    };
+    this.auditLogStream.write(JSON.stringify(logEntry) + '\n');
   }
 
   /**
@@ -14,13 +32,11 @@ export class ConfigService {
    * @returns The created risk threshold.
    */
   async createThreshold(thresholdData: Omit<IRiskThreshold, 'createdAt' | 'updatedAt' | 'id'>): Promise<IRiskThreshold> {
-    // In a real application, you might have more complex business logic here,
-    // like checking for conflicts or validating against other business rules.
+    const newThreshold = await this.configRepository.create(thresholdData);
     
-    // Note: The audit logging (FR-006) will be implemented in a later task (T010)
-    // by decorating this service or adding a dedicated audit service.
-    
-    return this.configRepository.create(thresholdData);
+    this.logAudit('CREATE_THRESHOLD', 'system', { newValue: newThreshold });
+
+    return newThreshold;
   }
 
   /**
@@ -30,8 +46,20 @@ export class ConfigService {
    * @returns The updated risk threshold, or null if not found.
    */
   async updateThresholdByFactor(factor: string, updateData: Partial<Omit<IRiskThreshold, 'factor' | 'createdAt' | 'updatedAt' | 'id'>>): Promise<IRiskThreshold | null> {
-    // Note: The audit logging (FR-006) will be implemented in a later task (T010)
+    const oldThreshold = await this.configRepository.findByFactor(factor);
+
+    if (!oldThreshold) {
+      return null;
+    }
+
+    const updatedThreshold = await this.configRepository.findByFactorAndUpdate(factor, updateData);
+
+    this.logAudit('UPDATE_THRESHOLD', 'system', { 
+      factor,
+      oldValue: oldThreshold.toObject(),
+      newValue: updatedThreshold?.toObject() 
+    });
     
-    return this.configRepository.findByFactorAndUpdate(factor, updateData);
+    return updatedThreshold;
   }
 }

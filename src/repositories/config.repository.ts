@@ -1,4 +1,4 @@
-import { RiskThresholdModel, IRiskThreshold } from '../../models/config/Threshold.model';
+import { RiskThresholdModel, IRiskThreshold } from '../models/config/Threshold.model';
 
 export class ConfigRepository {
   /**
@@ -24,5 +24,14 @@ export class ConfigRepository {
       { new: true } // Return the updated document
     );
     return updatedThreshold;
+  }
+
+  /**
+   * Finds a risk threshold by its factor.
+   * @param factor The factor to find.
+   * @returns The risk threshold document, or null if not found.
+   */
+  async findByFactor(factor: string): Promise<IRiskThreshold | null> {
+    return RiskThresholdModel.findOne({ factor: factor });
   }
 }

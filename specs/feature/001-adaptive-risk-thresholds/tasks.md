@@ -38,7 +38,7 @@
 - [x] T007 [US1] Create `src/controllers/config.controller.ts` with handlers for `createThreshold` and `updateThreshold`.
 - [x] T008 [US1] In `src/routes/config.routes.ts`, define the `POST /thresholds` and `PUT /thresholds/:factor` routes, linking them to the controller handlers.
 - [x] T009 [US1] Add middleware for 'admin' role authentication and Zod validation to the new routes in `src/routes/config.routes.ts`.
-- [ ] T010 [US1] Implement audit logging within `config.service.ts` for create and update operations, as specified in FR-006.
+- [x] T010 [US1] Implement audit logging within `config.service.ts` for create and update operations, as specified in FR-006.
 
 **Checkpoint**: User Story 1 is fully functional. Admins can create and update thresholds.
 
@@ -51,7 +51,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T011 [P] [US2] Add a `findByFactor` method to `config.repository.ts`.
+- [x] T011 [P] [US2] Add a `findByFactor` method to `config.repository.ts`.
 - [ ] T012 [P] [US2] Add a `getThresholdByFactor` method to `config.service.ts`.
 - [ ] T013 [US2] Identify the `RiskService` (likely `src/controllers/risk.controller.ts` or a service it calls) and import the `ConfigService`.
 - [ ] T014 [US2] In the risk calculation logic, replace hardcoded values by fetching them from `ConfigService.getThresholdByFactor`.
