@@ -4,6 +4,7 @@ import authRoutes from "./auth.routes";
 import studentRoutes from "./students.routes";
 import attendanceRoutes from "./attendance.routes";
 import academicRoutes from "./academics.routes";
+import configRoutes from "./config.routes";
 
 
 const router = Router();
@@ -19,6 +20,9 @@ router.use("/attendance", attendanceRoutes);
 
 // Academic routes
 router.use("/academics", academicRoutes);
+
+// Config routes
+router.use("/config", configRoutes);
 
 
 
