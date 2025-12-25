@@ -34,7 +34,7 @@
 ### Implementation for User Story 1
 
 - [x] T005 [P] [US1] Create `src/repositories/config.repository.ts` with `create` and `findByFactorAndUpdate` methods.
-- [ ] T006 [P] [US1] Create `src/services/config.service.ts` with `createThreshold` and `updateThresholdByFactor` methods.
+- [x] T006 [P] [US1] Create `src/services/config.service.ts` with `createThreshold` and `updateThresholdByFactor` methods.
 - [ ] T007 [US1] Create `src/controllers/config.controller.ts` with handlers for `createThreshold` and `updateThreshold`.
 - [ ] T008 [US1] In `src/routes/config.routes.ts`, define the `POST /thresholds` and `PUT /thresholds/:factor` routes, linking them to the controller handlers.
 - [ ] T009 [US1] Add middleware for 'admin' role authentication and Zod validation to the new routes in `src/routes/config.routes.ts`.
