@@ -1,0 +1,55 @@
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"name\": \"sih-project-backend\",\r\n  \"version\": \"1.0.0\",\r\n  \"description\": \"\",\r\n  \"main\": \"dist/index.js\",\r\n  \"scripts\": {\r\n    \"build\": \"tsc\",\r\n    \"dev\": \"node --watch --env-file=src/.env --import=tsx src/server.ts\",\r\n    \"version:major\": \"npm version major --no-git-tag-version\",\r\n    \"version:minor\": \"npm version minor --no-git-tag-version\",\r\n    \"version:patch\": \"npm version patch --no-git-tag-version\"\r\n  },\r\n  \"dependencies\": {\r\n    \"bcrypt\": \"^6.0.0\",\r\n    \"express\": \"^5.2.1\",\r\n    \"mongoose\": \"^9.0.2\",\r\n    \"tsx\": \"^4.21.0\",\r\n    \"zod\": \"^4.2.1\"\r\n  },\r\n  \"devDependencies\": {\r\n    \"@types/bcrypt\": \"^6.0.0\",\r\n    \"@types/express\": \"^5.0.6\",\r\n    \"@types/node\": \"^25.0.3\",\r\n    \"typescript\": \"^5.5.3\"\r\n  },\r\n  \"private\": true\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/package.json b/package.json
+--- a/package.json	(revision 36030b2f91d4f8683ce5f65191d2e6b23bf64a19)
++++ b/package.json	(date 1766658164354)
+@@ -15,13 +15,17 @@
+     "express": "^5.2.1",
+     "mongoose": "^9.0.2",
+     "tsx": "^4.21.0",
+-    "zod": "^4.2.1"
++    "zod": "^4.2.1",
++    "express-rate-limit": "^7.3.0",
++    "winston": "^3.11.0"
+   },
+   "devDependencies": {
+     "@types/bcrypt": "^6.0.0",
+     "@types/express": "^5.0.6",
+     "@types/node": "^25.0.3",
+-    "typescript": "^5.5.3"
++    "typescript": "^5.5.3",
++    "@types/express-rate-limit": "^6.0.0",
++    "@types/winston": "^3.10.0"
+   },
+   "private": true
+ }
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/tmp\r\n/out-tsc\r\n\r\n/node_modules\r\nnpm-debug.log*\r\nyarn-debug.log*\r\nyarn-error.log*\r\n/.pnp\r\n.pnp.js\r\n\r\n.vscode/*\r\n.env
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision 36030b2f91d4f8683ce5f65191d2e6b23bf64a19)
++++ b/.gitignore	(date 1766658115663)
+@@ -8,5 +8,11 @@
+ /.pnp
+ .pnp.js
+ 
+-.vscode/*
+-.env
+\ No newline at end of file
++.vscode/
++.env
++.gemini
++.specify
++dist/
++build/
++*.log
++
