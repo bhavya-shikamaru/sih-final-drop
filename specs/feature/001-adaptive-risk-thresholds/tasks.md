@@ -37,7 +37,7 @@
 - [x] T006 [P] [US1] Create `src/services/config.service.ts` with `createThreshold` and `updateThresholdByFactor` methods.
 - [x] T007 [US1] Create `src/controllers/config.controller.ts` with handlers for `createThreshold` and `updateThreshold`.
 - [x] T008 [US1] In `src/routes/config.routes.ts`, define the `POST /thresholds` and `PUT /thresholds/:factor` routes, linking them to the controller handlers.
-- [ ] T009 [US1] Add middleware for 'admin' role authentication and Zod validation to the new routes in `src/routes/config.routes.ts`.
+- [x] T009 [US1] Add middleware for 'admin' role authentication and Zod validation to the new routes in `src/routes/config.routes.ts`.
 - [ ] T010 [US1] Implement audit logging within `config.service.ts` for create and update operations, as specified in FR-006.
 
 **Checkpoint**: User Story 1 is fully functional. Admins can create and update thresholds.
