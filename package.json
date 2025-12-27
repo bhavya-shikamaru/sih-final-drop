@@ -11,9 +11,15 @@
     "version:patch": "npm version patch --no-git-tag-version"
   },
   "dependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "express": "^5.2.1",
     "mongoose": "^9.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "tsx": "^4.21.0",
     "zod": "^3.22.4"
   },

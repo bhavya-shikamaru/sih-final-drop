@@ -14,8 +14,11 @@
  */
 
 import express, { Request, Response, NextFunction } from "express";
+import swaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 import apiRouter from "./routes";
 import { connectDB } from "./config/database";
+import { swaggerSpec } from "./config/swagger.config";
 
 
 /**
@@ -31,6 +34,15 @@ const PORT = process.env.PORT || 5000;
 // ============================================================================
 // Middleware Configuration
 // ============================================================================
+
+/**
+ * Enable Cross-Origin Resource Sharing (CORS).
+ * Allows requests from the frontend development server.
+ */
+app.use(cors({
+    origin: 'http://localhost:8080', // Allow requests from this origin
+    credentials: true, // Allow sending cookies
+}));
 
 /**
  * Parse JSON request bodies.
@@ -65,6 +77,13 @@ app.get("/api/health", (_req: Request, res: Response) => {
  */
 app.use("/api", apiRouter);
 
+/**
+ * Mount the Swagger UI.
+ * All endpoints are prefixed with /api-docs.
+ */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 // ============================================================================
 // Error Handling
 // ============================================================================
@@ -98,21 +117,9 @@ app.use(
 // ============================================================================
 // Server Startup
 // ============================================================================
-async function startServer() {
-    await connectDB();
+connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log(`UmeedAI API running on port ${PORT}`);
-    });
-}
-
-startServer().then(r => {});
-
-/**
- * Start the HTTP server.
- * Logs startup information for local development.
- */
-app.listen(PORT, () => {
-    console.log(`
+        console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║                    UmeedAI API Server                        ║
 ╠══════════════════════════════════════════════════════════════╣
@@ -129,5 +136,7 @@ app.listen(PORT, () => {
 ║  • POST /api/uploads           - CSV data uploads            ║
 ╚══════════════════════════════════════════════════════════════╝
 	`);
+    });
 });
+
 

@@ -12,6 +12,13 @@ import {
 const router = Router();
 const configController = new ConfigController();
 
+/**
+ * @swagger
+ * tags:
+ *   name: Config
+ *   description: API for managing configuration
+ */
+
 // Define routes for User Story 1 (T008)
 router.post(
   '/thresholds',
@@ -30,8 +37,26 @@ router.put(
   configController.updateThreshold
 );
 
-// Define routes for User Story 3 (T019)
+/**
+ * @swagger
+ * /api/config/thresholds:
+ *   get:
+ *     summary: Retrieve all thresholds
+ *     tags: [Config]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of thresholds.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Threshold'
+ */
 router.get('/thresholds', requireAdmin, configController.getAllThresholds);
 router.delete('/thresholds', requireAdmin, configController.resetAllThresholds);
 
 export default router;
+

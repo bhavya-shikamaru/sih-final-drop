@@ -1,179 +1,82 @@
-/**
- * students Controller
- *
- * Handles CRUD operations for students monitored by UmeedAI.
- * students are subjects of analysis, not system users.
- */
-
 import { Request, Response } from "express";
-import {
-    Student,
-    CreateStudentInput,
-    UpdateStudentInput,
-    studentsStore
-} from "../models/students/Student.model";
-import {
-    sendSuccess,
-    sendError,
-    getPaginationMeta,
-    parsePaginationParams,
-    generateId
-} from "../utils/response.utils";
+import { Student } from "../models/students/Student.model";
+import { sendSuccess, sendError } from "../utils/response.utils";
 
-/**
- * GET /api/students
- *
- * Retrieves all students with pagination and optional filters.
- *
- * Query params:
- * - page: Page number (default: 1)
- * - limit: Items per page (default: 10, max: 100)
- * - department: Filter by department
- * - status: active | at-risk | dropped
- */
-export function getAllStudents(req: Request, res: Response): void {
-    const { page, limit } = parsePaginationParams(
-        req.query.page as string,
-        req.query.limit as string
-    );
-
-    const department = req.query.department as string | undefined;
-    const status = req.query.status as Student["status"] | undefined;
-
-    let filtered = [...studentsStore];
-
-    if (department) {
-        filtered = filtered.filter(
-            s => s.department.toLowerCase() === department.toLowerCase()
-        );
+export const getAllStudents = async (req: Request, res: Response) => {
+    try {
+        const students = await Student.find();
+        sendSuccess(res, students);
+    } catch (error) {
+        sendError(res, "Error fetching students", 500);
     }
+};
 
-    if (status) {
-        filtered = filtered.filter(s => s.status === status);
+export const getStudentById = async (req: Request, res: Response) => {
+    try {
+        const student = await Student.findById(req.params.id);
+        if (!student) {
+            return sendError(res, "Student not found", 404);
+        }
+        sendSuccess(res, student);
+    } catch (error) {
+        sendError(res, "Error fetching student", 500);
     }
+};
 
-    const startIndex = (page - 1) * limit;
-    const paginatedStudents = filtered.slice(startIndex, startIndex + limit);
-
-    sendSuccess(res, {
-        students: paginatedStudents,
-        pagination: getPaginationMeta(page, limit, filtered.length)
-    });
-}
-
-/**
- * GET /api/students/:id
- *
- * Retrieves a single student by ID.
- */
-export function getStudentById(req: Request, res: Response): void {
-    const { id } = req.params;
-    const student = studentsStore.find(s => s._id === id);
-
-    if (!student) {
-        sendError(res, "Student not found", 404);
-        return;
+export const createStudent = async (req: Request, res: Response) => {
+    try {
+        const newStudent = new Student(req.body);
+        await newStudent.save();
+        sendSuccess(res, newStudent, 201);
+    } catch (error) {
+        sendError(res, "Error creating student", 500);
     }
+};
 
-    sendSuccess(res, student);
-}
-
-/**
- * POST /api/students
- *
- * Creates a new student record.
- *
- * Request body: CreateStudentInput
- */
-export function createStudent(req: Request, res: Response): void {
-    const input: CreateStudentInput = req.body;
-    const errors: Array<{ field: string; message: string }> = [];
-
-    if (!input.enrollmentId) {
-        errors.push({ field: "enrollmentId", message: "Enrollment ID is required" });
+export const updateStudent = async (req: Request, res: Response) => {
+    try {
+        const student = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!student) {
+            return sendError(res, "Student not found", 404);
+        }
+        sendSuccess(res, student);
+    } catch (error) {
+        sendError(res, "Error updating student", 500);
     }
+};
 
-    if (!input.name) {
-        errors.push({ field: "name", message: "Student name is required" });
+export const deleteStudent = async (req: Request, res: Response) => {
+    try {
+        const student = await Student.findByIdAndDelete(req.params.id);
+        if (!student) {
+            return sendError(res, "Student not found", 404);
+        }
+        sendSuccess(res, null, 204);
+    } catch (error) {
+        sendError(res, "Error deleting student", 500);
     }
+};
 
-    if (!input.department) {
-        errors.push({ field: "department", message: "Department is required" });
-    }
+export const searchStudents = async (req: Request, res: Response) => {
+    try {
+        const { name, page = 1, limit = 10, sortBy = 'name', order = 'asc' } = req.query;
 
-    if (studentsStore.some(s => s.enrollmentId === input.enrollmentId)) {
-        errors.push({
-            field: "enrollmentId",
-            message: "Enrollment ID must be unique"
+        const query = name ? { name: { $regex: name, $options: 'i' } } : {};
+        const sortOrder = order === 'desc' ? -1 : 1;
+
+        const students = await Student.find(query)
+            .limit(Number(limit))
+            .skip((Number(page) - 1) * Number(limit))
+            .sort({ [sortBy as string]: sortOrder });
+
+        const count = await Student.countDocuments(query);
+
+        sendSuccess(res, {
+            students,
+            totalPages: Math.ceil(count / Number(limit)),
+            currentPage: Number(page)
         });
+    } catch (error) {
+        sendError(res, "Error searching students", 500);
     }
-
-    if (errors.length > 0) {
-        sendError(res, "Validation failed", 400, errors);
-        return;
-    }
-
-    const now = new Date();
-
-    const newStudent: Student = {
-        _id: generateId(),
-        ...input,
-        status: "active",
-        createdAt: now,
-        updatedAt: now
-    };
-
-    studentsStore.push(newStudent);
-    sendSuccess(res, newStudent, 201, "Student created successfully");
-}
-
-/**
- * PUT /api/students/:id
- *
- * Updates an existing student.
- * Supports partial updates.
- *
- * Request body: UpdateStudentInput
- */
-export function updateStudent(req: Request, res: Response): void {
-    const { id } = req.params;
-    const updates: UpdateStudentInput = req.body;
-
-    const index = studentsStore.findIndex(s => s._id === id);
-
-    if (index === -1) {
-        sendError(res, "Student not found", 404);
-        return;
-    }
-
-    const updatedStudent: Student = {
-        ...studentsStore[index],
-        ...updates,
-        _id: studentsStore[index]._id, // Prevent ID modification
-        enrollmentId: studentsStore[index].enrollmentId, // Prevent enrollmentId changes
-        updatedAt: new Date()
-    };
-
-    studentsStore[index] = updatedStudent;
-    sendSuccess(res, updatedStudent, 200, "Student updated successfully");
-}
-
-/**
- * DELETE /api/students/:id
- *
- * Soft-deletes a student by marking status as "dropped".
- */
-export function deleteStudent(req: Request, res: Response): void {
-    const { id } = req.params;
-    const student = studentsStore.find(s => s._id === id);
-
-    if (!student) {
-        sendError(res, "Student not found", 404);
-        return;
-    }
-
-    student.status = "dropped";
-    student.updatedAt = new Date();
-
-    sendSuccess(res, null, 200, "Student marked as dropped");
-}
+};

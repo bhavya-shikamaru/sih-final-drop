@@ -7,9 +7,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1efe37f6-f087-4aa7-95aa-dab368ab14b1" name="Changes" comment="Updated README.md">
-      <change beforePath="$PROJECT_DIR$/GEMINI.md" beforeDir="false" afterPath="$PROJECT_DIR$/GEMINI.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validation/schemas/config.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation/schemas/config.schema.ts" afterDir="false" />
+    <list default="true" id="1efe37f6-f087-4aa7-95aa-dab368ab14b1" name="Changes" comment="PRD update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/academics.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/academics.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/attendance.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/attendance.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/students.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/students.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/academics/Academic.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/academics/Academic.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/attendance/Attendance.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/attendance/Attendance.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/students/Student.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/students/Student.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/academics.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/academics.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/attendance.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/attendance.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/auth.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/auth.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/config.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/config.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/students.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/students.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +30,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="66" />
+    <option name="cachedIndexableFilesCount" value="65" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -35,7 +48,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/bhavya-shikamaru/sih-final-drop.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/bhavya-shikamaru/sih-final-drop-backend.git&quot;,
     &quot;accountId&quot;: &quot;ea04f0ac-4cc0-452a-b35d-c86427111451&quot;
   }
 }</component>
@@ -57,31 +70,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Node.js.server.ts.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "feature/002-automated-mentor-alerts",
-    "ignore.virus.scanning.warn.message": "true",
-    "javascript.preferred.runtime.type.id": "node",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/bhavy/WebstormProjects/sih-final-drop-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.android.studio.ml.bot.mainConfigurable",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\bhavy\\WebstormProjects\\sih-final-drop-backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Node.js.server.ts.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bhavy/WebstormProjects/sih-final-drop-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.android.studio.ml.bot.mainConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\bhavy\\WebstormProjects\\sih-final-drop-backend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecapUselessUpdatesCounter">
     <option name="suspendCountdown" value="9" />
   </component>
@@ -111,6 +124,7 @@
       <workItem from="1766655833588" duration="6455000" />
       <workItem from="1766668064463" duration="403000" />
       <workItem from="1766669143338" duration="9283000" />
+      <workItem from="1766772903310" duration="2503000" />
     </task>
     <task id="LOCAL-00001" summary="Implement student validation schema and middleware updates">
       <option name="closed" value="true" />
@@ -193,8 +207,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/server.ts</url>
-          <line>102</line>
-          <properties lambdaOrdinal="-1" />
+          <line>120</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

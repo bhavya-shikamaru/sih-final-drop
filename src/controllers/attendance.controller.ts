@@ -1,21 +1,58 @@
 import { Request, Response } from "express";
-import { attendanceStore, CreateAttendanceInput } from "../models/attendance/Attendance.model";
-import { sendSuccess, sendError, generateId } from "../utils/response.utils";
+import { Attendance } from "../models/attendance/Attendance.model";
+import { sendSuccess, sendError } from "../utils/response.utils";
 
-export function createAttendance(req: Request, res: Response): void {
-    const input: CreateAttendanceInput = req.body;
-
-    if (!input.studentId || !input.subjectCode) {
-        sendError(res, "Invalid attendance data", 400);
-        return;
+export const createAttendance = async (req: Request, res: Response) => {
+    try {
+        const newAttendance = new Attendance(req.body);
+        await newAttendance.save();
+        sendSuccess(res, newAttendance, 201);
+    } catch (error) {
+        sendError(res, "Error creating attendance record", 500);
     }
+};
 
-    const record = {
-        _id: generateId(),
-        ...input,
-        recordedAt: new Date(input.recordedAt)
-    };
+export const getAllAttendance = async (req: Request, res: Response) => {
+    try {
+        const attendance = await Attendance.find().populate('studentId');
+        sendSuccess(res, attendance);
+    } catch (error) {
+        sendError(res, "Error fetching attendance records", 500);
+    }
+};
 
-    attendanceStore.push(record);
-    sendSuccess(res, record, 201, "Attendance record created");
-}
+export const getAttendanceById = async (req: Request, res: Response) => {
+    try {
+        const attendance = await Attendance.findById(req.params.id).populate('studentId');
+        if (!attendance) {
+            return sendError(res, "Attendance record not found", 404);
+        }
+        sendSuccess(res, attendance);
+    } catch (error) {
+        sendError(res, "Error fetching attendance record", 500);
+    }
+};
+
+export const updateAttendance = async (req: Request, res: Response) => {
+    try {
+        const attendance = await Attendance.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!attendance) {
+            return sendError(res, "Attendance record not found", 404);
+        }
+        sendSuccess(res, attendance);
+    } catch (error) {
+        sendError(res, "Error updating attendance record", 500);
+    }
+};
+
+export const deleteAttendance = async (req: Request, res: Response) => {
+    try {
+        const attendance = await Attendance.findByIdAndDelete(req.params.id);
+        if (!attendance) {
+            return sendError(res, "Attendance record not found", 404);
+        }
+        sendSuccess(res, null, 204);
+    } catch (error) {
+        sendError(res, "Error deleting attendance record", 500);
+    }
+};

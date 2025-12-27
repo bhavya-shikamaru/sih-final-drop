@@ -1,13 +1,19 @@
-export interface AttendanceRecord {
-    _id: string;
-    studentId: string;
+import { model, Schema, Types } from 'mongoose';
+
+export interface IAttendance extends Document {
+    studentId: Types.ObjectId;
     subjectCode: string;
     attendancePercentage: number;
     totalClasses: number;
     attendedClasses: number;
-    recordedAt: Date;
 }
 
-export type CreateAttendanceInput = Omit<AttendanceRecord, "_id">;
+const attendanceSchema = new Schema<IAttendance>({
+    studentId: { type: Schema.Types.ObjectId, ref: 'Student', required: true },
+    subjectCode: { type: String, required: true },
+    attendancePercentage: { type: Number, required: true },
+    totalClasses: { type: Number, required: true },
+    attendedClasses: { type: Number, required: true },
+}, { timestamps: true });
 
-export const attendanceStore: AttendanceRecord[] = [];
+export const Attendance = model<IAttendance>('Attendance', attendanceSchema);
